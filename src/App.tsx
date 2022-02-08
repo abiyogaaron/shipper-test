@@ -72,7 +72,7 @@ const App: FC = () => {
         key={`menu-${index}`}
         className={`menu-item ${isActive ? 'menu-item-active' : ''}`}
       >
-        <Icon name={menu.icon} />
+        <Icon name={menu.icon} className="menu-item-icon" />
         {menu.title}
       </Menu.Item>
     );
