@@ -1,31 +1,139 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import 'semantic-ui-css/semantic.min.css';
+import React, {
+  FC, lazy, Suspense, useCallback, useMemo, useState,
+} from 'react';
+import {
+  Route, Switch, Link, useLocation,
+} from 'react-router-dom';
+import {
+  Sidebar, Menu, Icon, Grid, Container,
+} from 'semantic-ui-react';
+import { useMediaQuery } from 'react-responsive';
 
-function App() {
+import PageLoader from './components/PageLoader';
+import MobileSidebar from './components/MobileSidebar';
+import Navbar from './components/Navbar';
+
+import { MENU_LIST, SCREEN_BREAKPOINT } from './constants';
+import './styles/app.scss';
+
+const DriverManagement = lazy(() => import('./pages/DriverManagement'));
+const Home = lazy(() => import('./pages/Home'));
+const Pickup = lazy(() => import('./pages/Pickup'));
+
+const App: FC = () => {
+  const [isSidebarShow, setIsSidebarShow] = useState<boolean>(false);
+  const { pathname } = useLocation();
+  const isMobile = useMediaQuery({ query: `(max-width: ${SCREEN_BREAKPOINT.MOBILE}px)` });
+
+  const routes = useMemo(() => (
+    <Switch>
+      <Route
+        exact
+        path="/"
+        render={() => (
+          <Home />
+        )}
+      />
+      <Route
+        exact
+        path="/driver-management"
+        render={() => (
+          <DriverManagement />
+        )}
+      />
+      <Route
+        exact
+        path="/pickup"
+        render={() => (
+          <Pickup />
+        )}
+      />
+    </Switch>
+  ), []);
+
+  const handleToggle = useCallback(() => {
+    setIsSidebarShow(!isSidebarShow);
+  }, [isSidebarShow]);
+
+  const closeSidebar = useCallback(() => {
+    if (!isSidebarShow) {
+      return;
+    }
+    setIsSidebarShow(!isSidebarShow);
+  }, [isSidebarShow]);
+
+  const renderMenu = useCallback(() => MENU_LIST.map((menu, index) => {
+    const isActive = menu.to === pathname;
+
+    return (
+      <Menu.Item
+        as={Link}
+        to={menu.to}
+        key={`menu-${index}`}
+        className={`menu-item ${isActive ? 'menu-item-active' : ''}`}
+      >
+        <Icon name={menu.icon} />
+        {menu.title}
+      </Menu.Item>
+    );
+  }), [pathname]);
+
+  const renderContent = useCallback(() => {
+    if (isMobile) {
+      return (
+        <Container>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={16} className="content-mobile-wrapper">
+                <Suspense fallback={<PageLoader />}>
+                  {routes}
+                </Suspense>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      );
+    }
+    return (
+      <Container fluid>
+        <Grid columns={2}>
+          <Grid.Row>
+            <Grid.Column width={3} className="sidebar-desktop-wrapper">
+              <Menu vertical fluid className="navbar-wrapper">
+                {renderMenu()}
+              </Menu>
+            </Grid.Column>
+            <Grid.Column width={13} className="content-desktop-wrapper">
+              <Suspense fallback={<PageLoader />}>
+                {routes}
+              </Suspense>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
+    );
+  }, [isMobile, renderMenu]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Sidebar.Pushable>
+      {isMobile
+        && (
+        <MobileSidebar
+          isVisible={isSidebarShow}
+          renderMenuItem={renderMenu}
+        />
+        )}
+
+      <Sidebar.Pusher
+        dimmed={isSidebarShow}
+        onClick={closeSidebar}
+      >
+        <Navbar handleToggle={handleToggle} />
+
+        {renderContent()}
+      </Sidebar.Pusher>
+    </Sidebar.Pushable>
   );
-}
+};
 
 export default App;
