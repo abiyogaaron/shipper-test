@@ -3,13 +3,14 @@ import {
   IDriverManagementAction,
   IDriverManagementSetDataAction,
   IDriverManagementSetLoadingAction,
+  IDriverManagementSetPreviewAction,
   EDriverManagementAction,
 } from '../../type/driverManagement';
 
 const INITIAL_STATE: IDriverManagementState = {
   data: [],
   isLoading: false,
-  currentPage: 1,
+  currentPage: 0,
   previewDriver: [],
 };
 
@@ -22,6 +23,10 @@ const driverManagementReducer = (state = INITIAL_STATE, action: IDriverManagemen
     case EDriverManagementAction.SET_DATA: {
       const { data, previewDriver } = action.payload as IDriverManagementSetDataAction;
       return { ...state, data, previewDriver };
+    }
+    case EDriverManagementAction.SET_PREVIEW: {
+      const { previewDriver, currentPage } = action.payload as IDriverManagementSetPreviewAction;
+      return { ...state, previewDriver, currentPage };
     }
     default:
       return state;

@@ -1,0 +1,88 @@
+@import '_variable';
+@import '_mixin';
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.card-wrapper {
+  animation: fadeOut 0.5s ease-in;
+  z-index: 0;
+  @include mobile {
+    margin-bottom: 1em !important;
+    display: flex;
+    width: 100% !important;
+  }
+
+  &-container {
+    display: flex;
+    flex-direction: column;
+    @include mobile {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &-content {
+    margin-bottom: 0.5em;
+  }
+
+  &-user-icon {
+    color: $grey-light !important;
+    @include min-desktop {
+      margin-bottom: 0.25em !important;
+    }
+  }
+
+  &-label-info {
+    font-size: 12px;
+    color: $grey-light;
+    margin: 0 !important;
+
+    @include mobile {
+      font-size: 14px;
+    }
+  }
+
+  &-data {
+    font-weight: bold;
+    margin: 0 !important;
+
+    @include min-desktop {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &-header {
+    display: flex;
+    padding: 0.75em 0.75em 0.65em 0.75em;
+    justify-content: space-between;
+
+    @include mobile {
+      padding: 0.65em 1.5em 0.65em 1.5em;
+    }
+
+    p {
+      margin: 0 !important;
+    }
+
+    &-text {
+      color: $grey-light;
+    }
+    
+    &-id {
+      color: $primary;
+    }
+
+    &-icon {
+      color: $grey-light;
+    }
+  }
+}

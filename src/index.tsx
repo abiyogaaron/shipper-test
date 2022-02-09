@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import store from './redux';
+import store, { persistor } from './redux';
 import 'semantic-ui-css/semantic.min.css';
+import PageLoader from './components/PageLoader';
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <Route component={App} />
+      <PersistGate loading={<PageLoader />} persistor={persistor}>
+        <Route component={App} />
+      </PersistGate>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root'),

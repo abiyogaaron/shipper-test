@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Sidebar, Menu } from 'semantic-ui-react';
 
 interface IMobileSidebarProps {
@@ -23,4 +23,4 @@ const MobileSidebar: FC<IMobileSidebarProps> = ({
   </Sidebar>
 );
 
-export default MobileSidebar;
+export default memo(MobileSidebar);

@@ -99,3 +99,8 @@ export type TDriverManagementData = Pick<
 IDriverData,
 'dob' | 'name' | 'email' | 'phone' | 'login'
 >;
+
+export interface ICardDataField {
+  label: string;
+  value: string | number | boolean;
+}

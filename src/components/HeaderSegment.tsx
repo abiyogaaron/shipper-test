@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import {
   Segment, Header, Input, Button, Icon,
 } from 'semantic-ui-react';
@@ -11,7 +11,7 @@ interface IHeaderSegmentProps {
   searchPlaceholder?: string;
   addBtnText?: string;
 }
-
+// header segment could be reusable if some page dont want the search box just toggle the boolean
 const HeaderSegment: FC<IHeaderSegmentProps> = ({
   title,
   subtitle,
@@ -54,4 +54,4 @@ HeaderSegment.defaultProps = {
   addBtnText: '',
 };
 
-export default HeaderSegment;
+export default memo(HeaderSegment);

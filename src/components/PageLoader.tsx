@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 
 const PageLoader: FC = () => (
@@ -9,4 +9,4 @@ const PageLoader: FC = () => (
   </Segment>
 );
 
-export default PageLoader;
+export default memo(PageLoader);

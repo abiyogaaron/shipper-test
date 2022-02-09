@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Menu, Icon, Image } from 'semantic-ui-react';
 import { useMediaQuery } from 'react-responsive';
 import { SCREEN_BREAKPOINT } from '../type';
@@ -49,4 +49,4 @@ const Navbar: FC<INavbarProps> = ({
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

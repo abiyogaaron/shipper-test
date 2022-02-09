@@ -19,7 +19,7 @@ import { SCREEN_BREAKPOINT } from './type';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
-
+// lazy load component
 const DriverManagement = lazy(() => import('./pages/DriverManagement'));
 const Home = lazy(() => import('./pages/Home'));
 const Pickup = lazy(() => import('./pages/Pickup'));
@@ -109,6 +109,7 @@ const App: FC = () => {
             </Grid.Column>
             <Grid.Column width={13} className="content-desktop-wrapper">
               <Suspense fallback={<PageLoader />}>
+                {/* routes here so navbar and sidebar no need to be created or destroyed every change page */}
                 {routes}
               </Suspense>
             </Grid.Column>

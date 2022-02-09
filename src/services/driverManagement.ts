@@ -7,7 +7,7 @@ import { MAX_DRIVER_PER_PAGE, URL_REQUEST } from '../constants';
 import { AppState } from '../redux';
 import { setError } from '../redux/actions/common';
 import { setData, setLoading } from '../redux/actions/driverManagement';
-import { IDriverResponse, PromiseVoid } from '../type';
+import { IDriverResponse, PromiseVoid, TDriverManagementData } from '../type';
 import { IError } from '../type/common';
 import { IDriverManagementAction } from '../type/driverManagement';
 
@@ -18,14 +18,30 @@ AppState,
 {},
 IDriverManagementAction
 > => async (d: Dispatch, state) => {
-  const { currentPage } = state().driverManagement;
+  const { currentPage, data, previewDriver } = state().driverManagement;
+
+  if (data.length > 0 || previewDriver.length > 0) {
+    return;
+  }
 
   try {
     d(setLoading(true));
     const response = await apiCall<IDriverResponse>(URL_REQUEST.get_driver, 'GET');
+    const reformatDrivers = response.results.map((driver) => {
+      const newDriver: TDriverManagementData = {
+        name: driver.name,
+        dob: driver.dob,
+        email: driver.email,
+        phone: driver.phone,
+        login: driver.login,
+      };
+      return newDriver;
+    });
+
+    const offset = currentPage * MAX_DRIVER_PER_PAGE;
     d(setData({
-      data: response.results,
-      previewDriver: response.results.slice(0, MAX_DRIVER_PER_PAGE * currentPage),
+      data: reformatDrivers,
+      previewDriver: reformatDrivers.slice(offset, offset + MAX_DRIVER_PER_PAGE),
     }));
   } catch (error) {
     const { message } = error as IError;

@@ -1,0 +1,26 @@
+@import '_variable';
+@import '_mixin';
+
+.pagination-btn {
+  margin: 1em 0 0 0;
+  display: flex;
+  justify-content: center;
+
+  &-page {
+    border: none !important;
+    background-color: transparent !important;
+    outline: none !important;
+
+    &:hover {
+      color: $primary !important;
+    }
+
+    &-icon {
+      background-color: transparent !important;
+    }
+  }
+
+  @include mobile {
+    margin-bottom: 2em;
+  }
+}

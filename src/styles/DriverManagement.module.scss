@@ -1,0 +1,11 @@
+@import '_variable';
+@import '_mixin';
+
+.driver-carousel {
+  transition: transform 0.5s !important;
+  display: flex !important;
+
+  @include min-desktop {
+    flex-wrap: nowrap !important;
+  }
+}
