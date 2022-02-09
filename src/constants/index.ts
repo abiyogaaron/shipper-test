@@ -1,4 +1,4 @@
-import { IMenuItems } from '../interface';
+import { EStatusErrorCode, IMenuItems } from '../type';
 
 export const MENU_LIST: IMenuItems[] = [
   {
@@ -18,10 +18,14 @@ export const MENU_LIST: IMenuItems[] = [
   },
 ];
 
-export enum SCREEN_BREAKPOINT {
-  MOBILE_XSS = 375,
-  MOBILE_XS = 576,
-  MOBILE = 768,
-  TABLET = 992,
-  DESKTOP = 1200,
-}
+export const URL_REQUEST = {
+  get_driver: 'https://randomuser.me/api/?results=30',
+};
+
+export const ERROR_MESSAGE = {
+  [EStatusErrorCode.GENERAL_ERROR]: 'Sorry, there are some technical issue right now',
+  [EStatusErrorCode.NOT_FOUND]: 'Sorry, the data are not found',
+  [EStatusErrorCode.RATE_LIMITER]: 'Sorry our server is busy, Please try again later',
+};
+
+export const MAX_DRIVER_PER_PAGE = 5;

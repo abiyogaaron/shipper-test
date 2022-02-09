@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Menu, Icon, Image } from 'semantic-ui-react';
 import { useMediaQuery } from 'react-responsive';
-import { SCREEN_BREAKPOINT } from '../constants';
+import { SCREEN_BREAKPOINT } from '../type';
 
 import logo_shipper from '../logo_shipper.png';
 

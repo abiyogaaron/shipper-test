@@ -1,0 +1,40 @@
+@import '_variable';
+@import '_mixin';
+
+.card-wrapper {
+  @include mobile {
+    margin-bottom: 1em !important;
+    display: flex;
+    width: 100% !important;
+  }
+
+  &-user-icon {
+    color: $grey-light !important;
+  }
+
+  &-header {
+    display: flex;
+    padding: 0.75em 0.75em 0.65em 0.75em;
+    justify-content: space-between;
+
+    @include mobile {
+      padding: 0.65em 1.5em 0.65em 1.5em;
+    }
+
+    p {
+      margin: 0 !important;
+    }
+
+    &-text {
+      color: $grey-light;
+    }
+    
+    &-id {
+      color: $primary;
+    }
+
+    &-icon {
+      color: $grey-light;
+    }
+  }
+}

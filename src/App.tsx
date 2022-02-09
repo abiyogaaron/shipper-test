@@ -8,13 +8,17 @@ import {
   Sidebar, Menu, Icon, Grid, Container,
 } from 'semantic-ui-react';
 import { useMediaQuery } from 'react-responsive';
+import { ToastContainer } from 'react-toastify';
 
 import PageLoader from './components/PageLoader';
 import MobileSidebar from './components/MobileSidebar';
 import Navbar from './components/Navbar';
 
-import { MENU_LIST, SCREEN_BREAKPOINT } from './constants';
-import './styles/app.scss';
+import { MENU_LIST } from './constants';
+import { SCREEN_BREAKPOINT } from './type';
+
+import 'react-toastify/dist/ReactToastify.css';
+import './styles/App.scss';
 
 const DriverManagement = lazy(() => import('./pages/DriverManagement'));
 const Home = lazy(() => import('./pages/Home'));
@@ -69,7 +73,7 @@ const App: FC = () => {
       <Menu.Item
         as={Link}
         to={menu.to}
-        key={`menu-${index}`}
+        key={`menu-${menu.title}-${index}`}
         className={`menu-item ${isActive ? 'menu-item-active' : ''}`}
       >
         <Icon name={menu.icon} className="menu-item-icon" />
@@ -132,6 +136,7 @@ const App: FC = () => {
 
         {renderContent()}
       </Sidebar.Pusher>
+      <ToastContainer />
     </Sidebar.Pushable>
   );
 };

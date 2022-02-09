@@ -1,0 +1,49 @@
+@import '_variable';
+@import '_mixin';
+
+.header-segment {
+  margin-top: 50px !important;
+  display: flex;
+
+  @include min-desktop {
+    padding: 2.5em !important;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+
+  &-title {
+    color: $primary !important;
+    text-transform: uppercase;
+  }
+
+  &-search-input {
+    @include min-desktop {
+      margin-right: 0.5em;
+    }
+
+    @include mobile {
+      width: 100%;
+      box-sizing: border-box; 
+      margin-top: 1.5em !important;
+    }
+  }
+
+  &-add-btn {
+    background-color: $primary !important;
+    color: $white !important;
+    text-transform: uppercase !important;
+
+    @include min-desktop {
+      margin-left: 0.5em;
+    }
+
+    @include mobile {
+      margin-top: 1em !important;
+      width: 100%;
+    }
+  }
+}
