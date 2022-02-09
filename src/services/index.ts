@@ -18,11 +18,11 @@ export const apiCall = <BodyResponse = any>(
     fetch(url, httpConfig)
       .then((response) => {
         if (!response.ok) {
-          const obj = {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject({
             status: response.status || 500,
             message: ERROR_MESSAGE[response.status] || '',
-          };
-          reject(new Error(JSON.stringify(obj)));
+          });
         }
         return response.json();
       })

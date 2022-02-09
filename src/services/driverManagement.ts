@@ -27,11 +27,10 @@ IDriverManagementAction
       data: response.results,
       previewDriver: response.results.slice(0, MAX_DRIVER_PER_PAGE * currentPage),
     }));
-  } catch (err) {
-    const error = JSON.parse(err as string);
+  } catch (error) {
     const { message } = error as IError;
 
-    d(setError(err as IError));
+    d(setError(error as IError));
     toast.error(message);
   } finally {
     d(setLoading(false));
