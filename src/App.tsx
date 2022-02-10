@@ -18,7 +18,7 @@ import { MENU_LIST } from './constants';
 import { SCREEN_BREAKPOINT } from './type';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './styles/App.scss';
+import './App.scss';
 // lazy load component
 const DriverManagement = lazy(() => import('./pages/DriverManagement'));
 const Home = lazy(() => import('./pages/Home'));
