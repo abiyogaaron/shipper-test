@@ -15,10 +15,6 @@ export const filterData = <T>(
   originData: T, // the original data (to replace the generic data) if search value empty
   props: string[], // nested key fill in array
 ) => {
-  if (!value || props.length === 0) {
-    return [];
-  }
-
   if (!Array.isArray(data) || !Array.isArray(originData)) {
     return [];
   }

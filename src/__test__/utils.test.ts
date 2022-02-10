@@ -32,30 +32,6 @@ describe('Utils filterData', () => {
     expect(filterData(value, data, originData, props)).toMatchObject([]);
   });
 
-  test('Test Case: Props is Empty []', () => {
-    const data = [
-      {
-        name: {
-          first: 'John',
-          last: 'doe',
-        },
-        email: 'john.doe@gmail.com',
-      },
-      {
-        name: {
-          first: 'foo',
-          last: 'bar',
-        },
-        email: 'foo.bar@gmail.com',
-      },
-    ];
-    const value = 'o';
-    const originData = [...data];
-    const props = [];
-
-    expect(filterData(value, data, originData, props)).toMatchObject([]);
-  });
-
   test('Test Case: Props is ["name", "first"]', () => {
     const data = [
       {
