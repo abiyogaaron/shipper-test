@@ -5,7 +5,7 @@ import {
   ECommonAction,
 } from '../../type/common';
 
-const INITIAL_STATE: ICommonState = {
+export const INITIAL_STATE: ICommonState = {
   error: {
     status: -1,
     message: '',

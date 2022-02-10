@@ -21,6 +21,7 @@ export const MENU_LIST: IMenuItems[] = [
 // a API URL Constant
 export const URL_REQUEST = {
   get_driver: `${process.env.REACT_APP_API}/api/?results=30`,
+  get_driver_mock: `${process.env.REACT_APP_API}/api/`,
 };
 
 // a Error Msg Constant

@@ -8,7 +8,7 @@ import {
   IDriverManagementSetPreviewAction,
 } from '../../type/driverManagement';
 
-const INITIAL_STATE: IDriverManagementState = {
+export const INITIAL_STATE: IDriverManagementState = {
   data: [],
   isLoading: false,
   currentPage: 0,

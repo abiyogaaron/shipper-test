@@ -34,7 +34,7 @@ const CardItem: FC<ICardItemProps> = ({
   )), [CardDataField]);
 
   return (
-    <Card className={styles['card-wrapper']}>
+    <Card className={styles['card-wrapper']} data-testid="driver-card">
       <div className={styles['card-wrapper-header']}>
         <p>
           <span className={styles['card-wrapper-header-text']}>

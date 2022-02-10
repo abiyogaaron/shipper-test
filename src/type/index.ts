@@ -26,7 +26,7 @@ export type PromiseVoid = Promise<void>;
 export type THttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export type TGender = 'male' | 'female';
-export type TTitle = 'Mr'| 'Mrs' | 'Ms';
+export type TTitle = 'Mr'| 'Mrs' | 'Ms' | 'Miss' | 'Madame';
 
 interface IDriverData {
   gender: TGender;
@@ -43,13 +43,13 @@ interface IDriverData {
     city: string;
     state: string;
     country: string;
-    postcode: number;
+    postcode: number | string;
     coordinates: {
       latitude: string;
       longitude: string;
     },
     timezone: {
-      offset: number;
+      offset: string;
       description: string;
     }
   },
