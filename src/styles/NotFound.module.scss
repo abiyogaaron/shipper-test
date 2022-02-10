@@ -1,0 +1,15 @@
+@import '_variable';
+@import '_mixin';
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+
+  &-header {
+    color: $primary !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

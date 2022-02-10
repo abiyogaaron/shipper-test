@@ -19,6 +19,7 @@ import { SCREEN_BREAKPOINT } from './type';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './App.scss';
+import NotFound from './pages/NotFound';
 // lazy load component
 const DriverManagement = lazy(() => import('./pages/DriverManagement'));
 const Home = lazy(() => import('./pages/Home'));
@@ -52,6 +53,7 @@ const App: FC = () => {
           <Pickup />
         )}
       />
+      <Route component={NotFound} />
     </Switch>
   ), []);
 
