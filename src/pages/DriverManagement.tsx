@@ -9,6 +9,7 @@ import CardItem from '../components/CardItem';
 import HeaderSegment from '../components/HeaderSegment';
 import PageLoader from '../components/PageLoader';
 import PaginationBtn from '../components/PaginationBtn';
+import NotFoundData from '../components/NotFoundData';
 
 import { MAX_DRIVER_PER_PAGE } from '../constants';
 import { AppState } from '../redux';
@@ -61,22 +62,44 @@ const DriverManagement: FC = () => {
     });
   }, [data, previewDriver]);
 
-  const renderDriver = useCallback(() => driverData.map((driver) => {
-    const driverId = driver.login.uuid.split('-')[0];
-    let driverData: ICardDataField[] = [
-      { label: 'Nama Driver', value: `${driver.name.first} ${driver.name.last}` },
-      { label: 'Telepon', value: driver.phone },
-      { label: 'Email', value: driver.email },
-      { label: 'Tanggal Lahir', value: reformatDate(driver.dob.date) },
-    ];
+  const renderDriver = useCallback(() => {
+    if (driverData.length === 0) {
+      return (
+        <NotFoundData
+          headerText="Not Found"
+          subHeaderText="Please try with another driver first name"
+          icon="close"
+        />
+      );
+    }
 
-    if (isMobile) {
-      driverData = [
+    return driverData.map((driver) => {
+      const driverId = driver.login.uuid.split('-')[0];
+      let driverData: ICardDataField[] = [
         { label: 'Nama Driver', value: `${driver.name.first} ${driver.name.last}` },
         { label: 'Telepon', value: driver.phone },
+        { label: 'Email', value: driver.email },
+        { label: 'Tanggal Lahir', value: reformatDate(driver.dob.date) },
       ];
+
+      if (isMobile) {
+        driverData = [
+          { label: 'Nama Driver', value: `${driver.name.first} ${driver.name.last}` },
+          { label: 'Telepon', value: driver.phone },
+        ];
+        return (
+          <GridColumn key={driver.login.uuid} mobile={16}>
+            <CardItem
+              userId={driverId}
+              headerText="Driver Id"
+              icon="user circle"
+              CardDataField={driverData}
+            />
+          </GridColumn>
+        );
+      }
       return (
-        <GridColumn key={driver.login.uuid} mobile={16}>
+        <GridColumn key={driver.login.uuid}>
           <CardItem
             userId={driverId}
             headerText="Driver Id"
@@ -85,18 +108,8 @@ const DriverManagement: FC = () => {
           />
         </GridColumn>
       );
-    }
-    return (
-      <GridColumn key={driver.login.uuid}>
-        <CardItem
-          userId={driverId}
-          headerText="Driver Id"
-          icon="user circle"
-          CardDataField={driverData}
-        />
-      </GridColumn>
-    );
-  }), [driverData, isMobile]);
+    });
+  }, [driverData, isMobile]);
 
   if (isLoading) {
     return <PageLoader />;
