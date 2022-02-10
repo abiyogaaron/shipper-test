@@ -1,42 +1,41 @@
 import React, {
   FC, memo, useCallback, useMemo,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
-import { MAX_DRIVER_PER_PAGE } from '../constants';
-import { AppState } from '../redux';
-import { setPreviewAndPage } from '../redux/actions/driverManagement';
 import styles from '../styles/PaginationBtn.module.scss';
 
-const PaginationBtn: FC = () => {
-  const { currentPage, data } = useSelector((state: AppState) => state.driverManagement);
-  const dispatch = useDispatch();
+interface IPaginationProps {
+  maxPerPage: number;
+  currentPage: number;
+  dataLength: number;
+  setCurrentPage(page: number): void;
+}
 
+// Paginaton component is reusable so it could be reuse in another page component
+const PaginationBtn: FC<IPaginationProps> = ({
+  maxPerPage,
+  dataLength,
+  currentPage,
+  setCurrentPage,
+}) => {
   const prevPageDisabled = useMemo<boolean>(() => currentPage <= 0, [currentPage]);
   const nextPageDisabled = useMemo<boolean>(() => {
-    const lastPage = (data.length / MAX_DRIVER_PER_PAGE) - 1;
+    const lastPage = (dataLength / maxPerPage) - 1;
     return currentPage >= lastPage;
-  }, [data, currentPage]);
+  }, [dataLength, currentPage]);
 
   const movingPage = useCallback((e, isNext: boolean) => {
     e.stopPropagation();
-    let offset;
     let currPage;
 
     if (!isNext) {
-      offset = (currentPage - 1) * MAX_DRIVER_PER_PAGE;
       currPage = currentPage - 1;
     } else {
-      offset = (currentPage + 1) * MAX_DRIVER_PER_PAGE;
       currPage = currentPage + 1;
     }
 
-    const newPreviewDriver = data.slice(offset, offset + MAX_DRIVER_PER_PAGE);
-    dispatch(setPreviewAndPage({
-      currentPage: currPage,
-      previewDriver: newPreviewDriver,
-    }));
-  }, [currentPage, data]);
+    setCurrentPage(currPage);
+  }, [currentPage, dataLength]);
 
   return (
     <div className={styles['pagination-btn']}>
@@ -64,4 +63,4 @@ const PaginationBtn: FC = () => {
   );
 };
 
-export default memo(PaginationBtn);
+export default memo(PaginationBtn); // memo for unecessary re-render same as navbar or sidebar on app.tsx

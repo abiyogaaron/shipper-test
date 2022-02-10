@@ -2,11 +2,12 @@ import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { toast } from 'react-toastify';
 
+import { batch } from 'react-redux';
 import { apiCall } from '.';
-import { MAX_DRIVER_PER_PAGE, URL_REQUEST } from '../constants';
+import { URL_REQUEST } from '../constants';
 import { AppState } from '../redux';
 import { setError } from '../redux/actions/common';
-import { setData, setLoading } from '../redux/actions/driverManagement';
+import { setData, setLoading, setPreview } from '../redux/actions/driverManagement';
 import { IDriverResponse, PromiseVoid, TDriverManagementData } from '../type';
 import { IError } from '../type/common';
 import { IDriverManagementAction } from '../type/driverManagement';
@@ -18,7 +19,7 @@ AppState,
 {},
 IDriverManagementAction
 > => async (d: Dispatch, state) => {
-  const { currentPage, data, previewDriver } = state().driverManagement;
+  const { data, previewDriver } = state().driverManagement;
 
   if (data.length > 0 || previewDriver.length > 0) {
     return;
@@ -37,12 +38,10 @@ IDriverManagementAction
       };
       return newDriver;
     });
-
-    const offset = currentPage * MAX_DRIVER_PER_PAGE;
-    d(setData({
-      data: reformatDrivers,
-      previewDriver: reformatDrivers.slice(offset, offset + MAX_DRIVER_PER_PAGE),
-    }));
+    batch(() => {
+      d(setData(reformatDrivers));
+      d(setPreview(reformatDrivers));
+    });
   } catch (error) {
     const { message } = error as IError;
 

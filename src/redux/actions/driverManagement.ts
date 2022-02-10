@@ -1,8 +1,7 @@
+import { TDriverManagementData } from '../../type';
 import {
   EDriverManagementAction,
   IDriverManagementAction,
-  IDriverManagementSetDataAction,
-  IDriverManagementSetPreviewAction,
 } from '../../type/driverManagement';
 
 export const setLoading = (isLoading: boolean): IDriverManagementAction => ({
@@ -10,18 +9,19 @@ export const setLoading = (isLoading: boolean): IDriverManagementAction => ({
   payload: { isLoading },
 });
 
-export const setData = (obj: IDriverManagementSetDataAction): IDriverManagementAction => ({
+export const setData = (data: TDriverManagementData[]): IDriverManagementAction => ({
   type: EDriverManagementAction.SET_DATA,
+  payload: { data },
+});
+
+export const setCurrPage = (currPage: number): IDriverManagementAction => ({
+  type: EDriverManagementAction.SET_CURRPAGE,
   payload: {
-    data: obj.data,
-    previewDriver: obj.previewDriver,
+    currentPage: currPage,
   },
 });
 
-export const setPreviewAndPage = (obj: IDriverManagementSetPreviewAction): IDriverManagementAction => ({
+export const setPreview = (previewDriver: TDriverManagementData[]): IDriverManagementAction => ({
   type: EDriverManagementAction.SET_PREVIEW,
-  payload: {
-    previewDriver: obj.previewDriver,
-    currentPage: obj.currentPage,
-  },
+  payload: { previewDriver },
 });

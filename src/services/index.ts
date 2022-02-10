@@ -1,6 +1,7 @@
 import { ERROR_MESSAGE } from '../constants';
-import { THttpMethod } from '../type';
+import { EStatusErrorCode, THttpMethod } from '../type';
 
+// generic function to do an api call
 export const apiCall = <BodyResponse = any>(
   url: string,
   method: THttpMethod,
@@ -18,10 +19,11 @@ export const apiCall = <BodyResponse = any>(
     fetch(url, httpConfig)
       .then((response) => {
         if (!response.ok) {
+          // send error status and error message that already mapped
           // eslint-disable-next-line prefer-promise-reject-errors
           reject({
             status: response.status || 500,
-            message: ERROR_MESSAGE[response.status] || '',
+            message: ERROR_MESSAGE[response.status] || ERROR_MESSAGE[EStatusErrorCode.GENERAL_ERROR],
           });
         }
         return response.json();

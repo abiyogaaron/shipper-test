@@ -1,5 +1,5 @@
 import { EStatusErrorCode, IMenuItems } from '../type';
-
+// a Menu List Constant
 export const MENU_LIST: IMenuItems[] = [
   {
     title: 'Beranda',
@@ -18,10 +18,12 @@ export const MENU_LIST: IMenuItems[] = [
   },
 ];
 
+// a API URL Constant
 export const URL_REQUEST = {
-  get_driver: 'https://randomuser.me/api/?results=30',
+  get_driver: `${process.env.REACT_APP_API}/api/?results=30`,
 };
 
+// a Error Msg Constant
 export const ERROR_MESSAGE = {
   [EStatusErrorCode.GENERAL_ERROR]: 'Sorry, there are some technical issue right now',
   [EStatusErrorCode.NOT_FOUND]: 'Sorry, the data are not found',

@@ -3,8 +3,9 @@ import {
   IDriverManagementAction,
   IDriverManagementSetDataAction,
   IDriverManagementSetLoadingAction,
-  IDriverManagementSetPreviewAction,
+  IDriverManagementSetCurrPageAction,
   EDriverManagementAction,
+  IDriverManagementSetPreviewAction,
 } from '../../type/driverManagement';
 
 const INITIAL_STATE: IDriverManagementState = {
@@ -21,12 +22,16 @@ const driverManagementReducer = (state = INITIAL_STATE, action: IDriverManagemen
       return { ...state, isLoading };
     }
     case EDriverManagementAction.SET_DATA: {
-      const { data, previewDriver } = action.payload as IDriverManagementSetDataAction;
-      return { ...state, data, previewDriver };
+      const { data } = action.payload as IDriverManagementSetDataAction;
+      return { ...state, data };
     }
     case EDriverManagementAction.SET_PREVIEW: {
-      const { previewDriver, currentPage } = action.payload as IDriverManagementSetPreviewAction;
-      return { ...state, previewDriver, currentPage };
+      const { previewDriver } = action.payload as IDriverManagementSetPreviewAction;
+      return { ...state, previewDriver };
+    }
+    case EDriverManagementAction.SET_CURRPAGE: {
+      const { currentPage } = action.payload as IDriverManagementSetCurrPageAction;
+      return { ...state, currentPage };
     }
     default:
       return state;

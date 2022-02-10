@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
 const middleware = composeEnhancer(
   applyMiddleware(thunk as ThunkMiddleware<AppState, AppAction>),
 );
-
+// using redux persist so every whitelist state saved will be saved in localstorage
 const persistConfig = {
   key: 'driverManagement',
   storage,
@@ -38,6 +38,7 @@ const store = createStore(pReducer, middleware);
 const persistor = persistStore(store);
 
 export type AppState = ReturnType<typeof rootReducer>;
+export type TAppStateKey = keyof AppState;
 export type AppAction =
  | IDriverManagementAction
  | ICommonAction;

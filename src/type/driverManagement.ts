@@ -10,6 +10,7 @@ export interface IDriverManagementState {
 export enum EDriverManagementAction {
   SET_LOADING = 'SET_LOADING',
   SET_DATA = 'SET_DATA',
+  SET_CURRPAGE = 'SET_CURRPAGE',
   SET_PREVIEW = 'SET_PREVIEW',
 }
 
@@ -19,18 +20,21 @@ export interface IDriverManagementSetLoadingAction {
 
 export interface IDriverManagementSetDataAction {
   data: TDriverManagementData[];
-  previewDriver: TDriverManagementData[];
+}
+
+export interface IDriverManagementSetCurrPageAction {
+  currentPage: number;
 }
 
 export interface IDriverManagementSetPreviewAction {
   previewDriver: TDriverManagementData[];
-  currentPage: number;
 }
 
 export type TDriverManagementPayload =
   | IDriverManagementSetLoadingAction
   | IDriverManagementSetDataAction
-  | IDriverManagementSetPreviewAction;
+  | IDriverManagementSetPreviewAction
+  | IDriverManagementSetCurrPageAction;
 
 export interface IDriverManagementAction {
   type: EDriverManagementAction;
