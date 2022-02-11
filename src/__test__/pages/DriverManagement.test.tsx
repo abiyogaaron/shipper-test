@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  render, cleanup, waitFor, screen, within,
+  render, cleanup, waitFor, screen, within, fireEvent,
 } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
@@ -52,5 +52,27 @@ describe('---Mounting DriverManagement Page----', () => {
       const driverDOB = reformatDate(driverData[index].dob.date);
       expect(getByText(driverDOB)).toBeInTheDocument();
     });
+
+    const prevBtn = screen.getByRole('button', { name: /previous page/i });
+    const nextBtn = screen.getByRole('button', { name: /next page/i });
+
+    expect(prevBtn).toBeDisabled();
+    expect(nextBtn).toBeEnabled();
+  });
+
+  test('DriverManagementPage NextPage Btn Clicked', () => {
+    render(
+      <Provider store={store}>
+        <DriverManagement />
+      </Provider>,
+    );
+
+    const cardInner = screen.getByTestId('card-inner');
+    const nextBtn = screen.getByRole('button', { name: /next page/i });
+    const prevBtn = screen.getByRole('button', { name: /previous page/i });
+
+    fireEvent.click(nextBtn);
+    expect(prevBtn).toBeEnabled();
+    expect(cardInner).toHaveStyle('transform: translateX(-100%);');
   });
 });

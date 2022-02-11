@@ -116,7 +116,7 @@ const DriverManagement: FC = () => {
   }
 
   return (
-    <Container>
+    <Container data-testid="driver-container">
       <Grid>
         <Grid.Row>
           <Grid.Column>
@@ -133,7 +133,7 @@ const DriverManagement: FC = () => {
       </Grid>
 
       <Grid columns={MAX_DRIVER_PER_PAGE}>
-        <Grid.Row className={styles['driver-carousel']} style={translateDriverStyle}>
+        <Grid.Row className={styles['driver-carousel']} style={translateDriverStyle} data-testid="card-inner">
           {renderDriver()}
         </Grid.Row>
       </Grid>

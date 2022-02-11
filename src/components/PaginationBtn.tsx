@@ -38,13 +38,14 @@ const PaginationBtn: FC<IPaginationProps> = ({
   }, [currentPage, dataLength]);
 
   return (
-    <div className={styles['pagination-btn']}>
+    <div className={styles['pagination-btn']} data-testid="pagination-container">
       <Button
         icon
         labelPosition="left"
         className={styles['pagination-btn-page']}
         disabled={prevPageDisabled}
         onClick={(e) => movingPage(e, false)}
+        role="button"
       >
         <Icon name="chevron left" className={styles['pagination-btn-page-icon']} />
         Previous Page
@@ -55,6 +56,7 @@ const PaginationBtn: FC<IPaginationProps> = ({
         className={styles['pagination-btn-page']}
         disabled={nextPageDisabled}
         onClick={(e) => movingPage(e, true)}
+        role="button"
       >
         <Icon name="chevron right" className={styles['pagination-btn-page-icon']} />
         Next Page
