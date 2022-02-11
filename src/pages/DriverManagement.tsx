@@ -45,6 +45,10 @@ const DriverManagement: FC = () => {
 
   useEffect(() => {
     dispatch(getDriverData());
+
+    return (() => {
+      dispatch(setPreview(data));
+    });
   }, []);
 
   const getSearchInput = useCallback((value: string) => {
